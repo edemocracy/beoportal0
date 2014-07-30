@@ -204,6 +204,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 CREATE TABLE IF NOT EXISTS `signup_tokens` (
   `tokenId` int(11) NOT NULL AUTO_INCREMENT,
   `token` varchar(64) NOT NULL,
+  `memberId` varchar(64) NOT NULL,
   PRIMARY KEY (`tokenId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -231,6 +232,8 @@ CREATE TABLE IF NOT EXISTS `tags` (
 CREATE TABLE IF NOT EXISTS `users` (
   `userId` int(11) NOT NULL AUTO_INCREMENT,
   `userName` varchar(200) NOT NULL,
+  `memberId` varchar(64) NOT NULL,
+  `entitled` boolean NOT NULL,
   `email` varchar(200) NOT NULL,
   `group` int(11) NOT NULL,
   `password` varchar(256) NOT NULL,
@@ -241,6 +244,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `scoreArguments` int(11) NOT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `userName` (`userName`),
+  UNIQUE KEY `memberId` (`memberId`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- --------------------------------------------------------
