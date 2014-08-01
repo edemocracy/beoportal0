@@ -2,7 +2,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Database: `bptarguments`
+-- Database: `beoportal`
 --
 
 -- --------------------------------------------------------
@@ -234,6 +234,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `userName` varchar(200) NOT NULL,
   `memberId` varchar(64) NOT NULL,
   `entitled` boolean NOT NULL,
+  `verified` boolean NOT NULL,
   `email` varchar(200) NOT NULL,
   `group` int(11) NOT NULL,
   `password` varchar(256) NOT NULL,
