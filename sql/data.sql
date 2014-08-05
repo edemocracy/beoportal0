@@ -5,6 +5,9 @@ set names utf8;
 --
 -- Database: `beoportal`
 --
+delete from localization;
+delete from pages;
+delete from permissions;
 
 --
 -- Dumping data for table `localization`
@@ -86,7 +89,8 @@ INSERT INTO `localization` (`loc_key`, `loc_language`, `loc_val`) VALUES
 ('HEADER_NAVI_NEW_QUESTION', 'de', 'Neue Frage'),
 ('HEADER_NAVI_SHARE_PAGE', 'de', 'Seite Teilen'),
 ('HEADER_NEW_GROUP', 'de', 'Neue Gruppe'),
-('HEADER_SIGNUP', 'de', 'Anmelden'),
+('HEADER_SIGNUP', 'de', 'Registrieren'),
+('HEADER_LOGIN', 'de', 'Anmelden'),
 ('HEADER_TEXT', 'de', 'BEO Portal'),
 ('HTML_HEADER_META_LANG', 'de', 'de'),
 ('HTML_META_TITLE', 'de', ' - BEO Portal'),
@@ -347,7 +351,8 @@ INSERT INTO `localization` (`loc_key`, `loc_language`, `loc_val`) VALUES
 ('HEADER_NAVI_NEW_QUESTION', 'en', 'New Question'),
 ('HEADER_NAVI_SHARE_PAGE', 'en', 'Share Page'),
 ('HEADER_NEW_GROUP', 'en', 'New Group'),
-('HEADER_SIGNUP', 'en', 'Sign-On'),
+('HEADER_SIGNUP', 'en', 'Sign Up'),
+('HEADER_LOGIN', 'en', 'Login'),
 ('HTML_HEADER_META_LANG', 'en', 'en'),
 ('HTML_META_TITLE', 'en', ' - BEO Portal'),
 ('HTML_META_TITLE_ARGUMENT', 'en', '[ARGUMENT] - BEO Portal'),
@@ -550,6 +555,7 @@ INSERT INTO `pages` (`pageId`, `pageTitle`, `url`, `className`, `templateFile`) 
 (17, 'edit_argument', 'edit_argument', 'PageEditArgument', 'editArgument.php'),
 (18, 'edit_counter_argument', 'edit_counter_argument', 'PageEditCounterArgument', 'editCounterArgument.php'),
 (19, 'edit_question', 'edit_question', 'PageEditQuestion', 'editQuestion.php'),
+(20, 'login', 'login', 'PageLogin', 'login.php'),
 (22, 'faq', 'faq', 'PageFaq', 'faq.php'),
 (23, 'overview', 'overview', 'PageOverview', 'overview.php');
 
