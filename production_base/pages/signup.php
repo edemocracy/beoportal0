@@ -111,6 +111,20 @@ class PageSignup extends Page
         return mysql_num_rows($res) == 1;
     }
 
+    public function getMemberIdBySignupToken() {
+        /* fetch the memberId associated with  */
+        global $sSession, $sDB;
+
+        $token = $sSession->getVal("signupToken");
+        $res = $sDB->exec("SELECT memberId FROM `signup_tokens` WHERE `token` = '".mysql_real_escape_string($token)."' LIMIT 1;");
+        if(mysql_num_rows($res) == 0)
+        {
+            return;
+        }
+        $row = mysql_fetch_object($res);
+        return $row->memberId;
+    }
+
     public function handleSignup()
     {
         global $sRequest, $sDB, $sQuery, $sTemplate, $sUser, $sSession;
@@ -154,7 +168,8 @@ class PageSignup extends Page
             // check for valid token if required
             if(SIGNUP_REQUIRE_TOKEN)
             {
-                if(!$this->checkSessionSignupToken())
+                $memberId = $this->getMemberIdBySignupToken();
+                if(!$memberId)
                 {
                     $this->setError($sTemplate->getString("SIGNUP_REQUIRE_TOKEN"));
                     return false;
@@ -163,7 +178,7 @@ class PageSignup extends Page
 
             $user = new User();
 
-            if($user->create($username, $email, $password))
+            if($user->create($username, $email, $password, $memberId))
             {
                 $addSuccessText = "";
 

@@ -44,7 +44,7 @@ class User
         $this->adminGroups  = NULL;
     }
 
-    public function create($username, $email, $password, $sendConfirmation = true, $group = USER_GROUP_DEFAULT_SIGNUP)
+    public function create($username, $email, $password, $memberId = "", $sendConfirmation = true, $group = USER_GROUP_DEFAULT_SIGNUP)
     {
         global $sDB, $sTemplate;
 
@@ -52,10 +52,11 @@ class User
         $passwordHash = crypt($password, '$6$rounds=5000$'.$salt.'$');
         $dateAdded    = time();
 
-        $sDB->execUsers("INSERT INTO `users` (`userId`, `userName`, `email`, `group`, `password`, `salt`, `dateAdded`) VALUES
-                                             (NULL, '".mysql_real_escape_string($username)."', '".mysql_real_escape_string($email)."', '".i($group)."', '".mysql_real_escape_string($passwordHash)."', '".mysql_real_escape_string($salt)."', '".i($dateAdded)."');");
+        $sDB->execUsers("INSERT INTO `users` (`userId`, `userName`, `email`, `group`, `password`, `salt`, `dateAdded`, `memberId`) VALUES
+                                             (NULL, '".mysql_real_escape_string($username)."', '".mysql_real_escape_string($email)."', '".i($group)."', '".mysql_real_escape_string($passwordHash)."', '".mysql_real_escape_string($salt)."', '".i($dateAdded)."', '".mysql_real_escape_string($memberId)."');");
 
-        if(mysql_affected_rows())
+        $error = mysql_error();
+        if(!$error)
         {
             $this->userId    = mysql_insert_id();
             $this->userName  = $username;
@@ -85,6 +86,8 @@ class User
             return true;
         }else
         {
+            log_error("inserting user failed!");
+            log_error($error);
             return false;
         }
     }
