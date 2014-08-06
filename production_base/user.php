@@ -39,9 +39,6 @@ class User
         $this->isLoggedIn   = false;
         $this->userId       = 0;
         $this->voteData     = 0;
-        $this->groups       = NULL;
-        $this->ownGroups    = NULL;
-        $this->adminGroups  = NULL;
     }
 
     public function create($username, $email, $password, $memberId = "", $sendConfirmation = true, $group = USER_GROUP_DEFAULT_SIGNUP)
@@ -65,6 +62,7 @@ class User
             $this->salt      = $salt;
             $this->dateAdded = $dateAdded;
             $this->group     = $group;
+            $this->lastParticipation = $lastParticipation;
 
             if($sendConfirmation)
             {
@@ -114,6 +112,8 @@ class User
         $this->scoreQuestions   = $row->scoreQuestions;
         $this->scoreArguments   = $row->scoreArguments;
         $this->group            = $row->group;
+        $this->lastParticipation = $row->lastParticipation;
+        $this->participation    = $row->participation;
 
         if($userId == $sSession->getVal('userId'))
         {
@@ -156,6 +156,22 @@ class User
 
     public function isVerified() {
         return $this->verified;
+    }
+
+    public function getParticipation() {
+        return $this->participation;
+    }
+
+    public function setParticipation($participation, $update = false)
+    {
+        global $sDB;
+
+        if ($update) {
+            $update = ", `user_lastParticipation` = '".time()."'";
+            $this->lastParticipation = time();
+        } else { $update = ""; }
+        $sDB->execUsers("UPDATE `users` SET `participation` = '".i($participation)."'".$update." WHERE `userId` = '".i($this->userId)."' LIMIT 1;");
+        return true;
     }
 
     public function getSignupDate()
@@ -470,9 +486,8 @@ class User
     private $salt;
     private $dateAdded;
     private $group;
-    private $groups;
-    private $ownGroups;
-    private $adminGroups;
+    private $lastParticipation;
+    private $participation;
 
     private $voteData;
     private $scoreQuestions;

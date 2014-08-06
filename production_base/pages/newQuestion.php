@@ -87,14 +87,14 @@ class PageNewQuestion extends Page
         $tagsRaw        = substr($sRequest->getStringPlain("new_question_tags"), 0, MAX_TAGS_CHR_LENGTH);
         $details        = nl2br(htmlspecialchars($sRequest->getStringPlain("new_question_details")));
         $type           = $sRequest->getInt("new_question_type");
-        $flags          = $sRequest->getInt("new_question_flags");
+        $participate          = $sRequest->getInt("new_question_participate");
 
         validateQuestionType($type);
-        validateQuestionFlags($flags);
+        validateQuestionFlags($participate);
 
         if($type == QUESTION_TYPE_LISTED)
         {
-            $flags = 0;
+            $participate = 0;
         }
 
 
@@ -114,10 +114,10 @@ class PageNewQuestion extends Page
         $tags = array_merge($tags, $this->tagsByString(str_replace(" ", ",", $question)));
         $tags = $this->filterTags($tags);
 
-        return $this->store($question, $questionParsed, $tags, $details, $tagsNoQuestion, $type, $flags);
+        return $this->store($question, $questionParsed, $tags, $details, $tagsNoQuestion, $type, $participate);
     }
 
-    private function store($question, $questionParsed, $tags, $details, $tagsNoQuestion, $type, $flags)
+    private function store($question, $questionParsed, $tags, $details, $tagsNoQuestion, $type, $participate)
     {
         global $sDB, $sUser, $sTemplate, $sNotify;
 
@@ -148,9 +148,9 @@ class PageNewQuestion extends Page
         $additionalData->numCheckIns = 0;
         $additionalData->tags        = array_unique($tagsNoQuestion);
 
-        $sDB->exec("INSERT INTO `questions` (`questionId`, `title`, `url`, `details`, `dateAdded`, `userId`, `score`, `scoreTrending`, `scoreTop`, `additionalData`, `type`, `flags`) VALUES
+        $sDB->exec("INSERT INTO `questions` (`questionId`, `title`, `url`, `details`, `dateAdded`, `userId`, `score`, `scoreTrending`, `scoreTop`, `additionalData`, `type`, `participate`) VALUES
                                             (NULL, '".mysql_real_escape_string($question)."', '".mysql_real_escape_string($url)."', '".mysql_real_escape_string($details)."',
-                                             '".time()."', '".$sUser->getUserId()."', '0', '0', '0', '".serialize($additionalData)."', '".i($type)."', '".i($flags)."');");
+                                             '".time()."', '".$sUser->getUserId()."', '0', '0', '0', '".serialize($additionalData)."', '".i($type)."', '".i($participate)."');");
 
         $questionId = mysql_insert_id();
 

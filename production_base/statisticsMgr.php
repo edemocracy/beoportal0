@@ -304,6 +304,14 @@ class StatisticsMgr
             $sDB->exec("INSERT INTO `user_votes` (`voteId`, `userId`, `questionId`, `argumentId`, `vote`, `dateAdded`)
                         VALUES (NULL, '".i($user->getUserId())."', '".i($questionId)."', '".i($argumentId)."', '".i($vote)."', '".time()."');");
         }
+        if($vote == VOTE_UP && !$argumentId) {
+            /* update with question participation flags */
+            $participation = $user->getParticipation();
+            $participate = $question->participate();
+            if ($participate) {
+                $user->setParticipation($participation | $participate, true);
+            }
+        }
 
         if ($argumentId)
         {

@@ -64,7 +64,7 @@ class Question
         $this->additionalData = unserialize($row->additionalData);
         $this->timeSince      = timeSinceString($row->dateAdded);
         $this->type           = $row->type;
-        $this->flags          = $row->flags;
+        $this->participate    = $row->participate;
 
         if($this->type == QUESTION_TYPE_UNLISTED)
         {
@@ -297,14 +297,9 @@ class Question
         return $this->type;
     }
 
-    public function hasFlag($f)
+    public function participate()
     {
-        return $this->flags & $f;
-    }
-
-    public function flags()
-    {
-        return $this->flags;
+        return $this->participate;
     }
 
     /*
@@ -348,7 +343,7 @@ class Question
     private $timeSince;
     private $additionalData;
     private $type;
-    private $flags;
+    private $participate;
     private $url;
     private $urlPlain;
 
