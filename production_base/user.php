@@ -150,6 +150,14 @@ class User
         return $this->isLoggedIn;
     }
 
+    public function isEntitled() {
+        return $this->entitled;
+    }
+
+    public function isVerified() {
+        return $this->verified;
+    }
+
     public function getSignupDate()
     {
         return date("d.m.Y", $this->dateAdded);

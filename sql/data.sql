@@ -173,6 +173,7 @@ INSERT INTO `localization` (`loc_key`, `loc_language`, `loc_val`) VALUES
 ('NOTICE_UNFOLLOW_SUCCESS', 'de', 'Du folgst dieser Frage nun nicht mehr.'),
 ('NOTICE_VOTE_NOT_CHECKED_IN', 'de', 'Du musst in der jeweiligen Fraktion  eingecheckt sein um abzustimmen.'),
 ('NOTICE_VOTE_NOT_LOGGED_IN', 'de', 'Du musst eingeloggt sein um abzustimmen.'),
+('NOTICE_VOTE_NOT_ENTITLED', 'de', 'Du musst stimmberechtigt sein, um Anträge unterstützen zu können.'),
 ('NOTIFICATION_NEW_ARGUMENT_BODY', 'de', 'Hallo [USERNAME],<br />\r\n<br />\r\n[AUTHOR] hat zu dem Thema "[QUESTION]" ein neues Argument mit dem Titel "[ARGUMENT]" verfasst: <a href = ''[URL]''>[URL]</a><br />\r\n<br />\r\nGruß,<br /><br />\r\n<br />\r\nFalls du diesem Thema nicht mehr folgen möchtest klicke bitte hier: <a href = ''[UNFOLLOW_URL]''>[UNFOLLOW_URL]</a><br />\r\nFür eine Übersicht aller von dir gefolgten Themen klicke bitte hier: <a href = ''[PROFILE_URL]''>[PROFILE_URL]</a>'),
 ('NOTIFICATION_NEW_ARGUMENT_SUBJECT', 'de', 'Neues Argument zu einer Frage'),
 ('NUM_COUNTER_ARGUMENTS', 'de', 'Gegen-argumente'),

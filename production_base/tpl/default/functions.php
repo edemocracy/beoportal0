@@ -96,6 +96,12 @@ function upvoteQuestion($questionId)
         $onSubmit = "wikiargument.raiseError(\"".$sTemplate->getString("NOTICE_VOTE_NOT_LOGGED_IN")."\"); return false;";
     }
 
+    if(!$sUser->isEntitled())
+    {
+        $canVote  = false;
+        $onSubmit = "wikiargument.raiseError(\"".$sTemplate->getString("NOTICE_VOTE_NOT_ENTITLED")."\"); return false;";
+    }
+
     $ret = "";
 
     if($vote == VOTE_UP)
