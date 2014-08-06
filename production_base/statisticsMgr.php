@@ -317,7 +317,7 @@ class StatisticsMgr
             }
         }
 
-        if($user->isLoggedIn())
+        if($user->isLoggedIn() && $user->isEntitled())
         {
             $this->lazyUpdateUserStats($questionId, $argumentId, $vote, $user->getUserId());
 
