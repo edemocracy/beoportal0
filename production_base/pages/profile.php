@@ -48,6 +48,48 @@ class PageProfile extends Page
         }
 
         $this->setShortUrl($this->user->shortUrl());
+
+        if($this->handleSubscribeUnsubscribe()) {
+            header("Location: ".$this->getRedirectUrl());
+            exit;
+        }
+    }
+
+    private function handleSubscribeUnsubscribe()
+    {
+        global $sRequest;
+        //var_dump(@$_GET);
+        //var_dump(@$_POST);
+
+        /* 
+         * allowed values for $subscribe / $unsubscribe: 
+         * * 4 Interparteiliches
+         * * 2 Politik
+         */
+
+        $subscribe = $sRequest->getInt("subscribe");
+        if($subscribe)
+        {
+            if (!($subscribe == 4 | $subscribe == 2)) {
+                exit;
+            }
+            $participation = $this->user->getParticipation();
+            $newParticipation = $participation | $subscribe;
+            $this->user->setParticipation($newParticipation);
+            return true;
+        } 
+
+        $unsubscribe = $sRequest->getInt("unsubscribe");
+        if($unsubscribe)
+        {
+            if (!($unsubscribe == 4 | $unsubscribe == 2)) {
+                exit;
+            }
+            $participation = $this->user->getParticipation();
+            $newParticipation = $participation & ~$unsubscribe;
+            $this->user->setParticipation($newParticipation);
+            return true;
+        }
     }
 
     public function getUserId()
@@ -85,6 +127,73 @@ class PageProfile extends Page
         }
 
         return $qF;
+    }
+
+    private function makeSubscribeButton($label, $value) {
+        return "<button class='button_orange' style='float:right; width: auto;' type='submit' name='subscribe' value=$value>Für '$label' anmelden</button>";
+    }
+
+    private function makeUnsubscribeButton($label, $value) {
+        return "<button class='button_blue' style='float:right; width: auto;' type='submit' name='unsubscribe' value=$value>Von '$label' abmelden</button>";
+    }
+
+    private function upvotedQuestionsForParticipationValue($userId, $partValue) {
+        global $sDB;
+        $query = "SELECT count(*) as c
+            FROM user_votes as v, questions as q
+            WHERE v.questionId = q.questionId 
+            AND argumentId=0 
+            AND v.userId='".$userId."'
+            AND q.participate=".$partValue.";";
+        $res = $sDB->exec($query);
+        $error = mysql_error();
+        if ($error) var_dump($error);
+        $row = mysql_fetch_array($res);
+        return $row["c"];
+    }
+
+    private function makeParticipationRow($label, $value) {
+        global $sUser;
+
+        $participation = $sUser->getParticipation();
+
+        if ($participation & $value) 
+        {
+            // check if user upvoted any question in this 'themenbereich'
+            $upvoted = $this->upvotedQuestionsForParticipationValue($sUser->getUserId(), $value);
+            if ($upvoted) {
+                $content = "Du unterstützt $upvoted Anträge in diesem Themenbereich und bist damit automatisch Teilnehmer";
+            } else {
+                $content = "Du unterstützt keine Anträge in diesem Themenbereich ".$this->makeUnsubscribeButton($label, $value);
+            }
+        } else
+        {
+            $content = "Du unterstützt keine Anträge in diesem Themenbereich ".$this->makeSubscribeButton($label, $value);
+        }
+        return "$label: $content";
+    }
+
+    public function makeParticipationRowInnerparteiliches($user) {
+        $label = "Innerparteiliches";
+        $value = 4;
+        return $this->makeParticipationRow($label, $value);
+    }
+
+    public function makeParticipationRowPolitik($user) {
+        $label = "Politik";
+        $value = 2;
+        return $this->makeParticipationRow($label, $value);
+    }
+
+    public function getFormUrl()
+    {
+        global $sTemplate;
+        return $sTemplate->getRoot()."user/".$this->userId."/";
+    }
+
+    public function getRedirectUrl() {
+        global $sTemplate;
+        return $sTemplate->getRoot()."user/".$this->userId."/";
     }
 
     private $userId;

@@ -1477,14 +1477,21 @@ background:url(<? echo $sTemplate->getTemplateRoot(); ?>img/assets/plus.png) no-
   margin-left: 175px;
 }
 
+.subscribe_button {
+  float: right;
+  width: 180px;
+}
+
+.unsubscribe_button {
+  float: right;
+  width: 180px;
+}
+
 .profile {
-  width: 600px;
-  margin-left: 175px;
 }
 
 .row {
-
-  padding-top: 60px;
+  padding-top: 20px;
 }
 
 .row_no_padding {
@@ -1881,6 +1888,7 @@ cursor: pointer;
 
 .seperator {
   height: 1px;
+  padding-top: 30px;
   border-top: 1px solid #A1A1A1;
 }
 
@@ -1894,13 +1902,10 @@ cursor: pointer;
   color:#A1A1A1;
 }
 
-.profile_score_questions {
+.profile_score_arguments {
   float: left;
   width: 280px;
   margin-left:30px;
-}.profile_score_arguments {
-  float: right;
-  width: 280px;
 }
 
 .profile_score_questions .score,
@@ -2296,6 +2301,11 @@ text-align:center!important;}
 border-radius: 0px 10px 10px 0px;
 top:2px;
 bottom:2px;
+}
+
+.participation_row {
+  list-style-type: disc;
+  margin-bottom: 60px;
 }
 
 .argument_con_bar{

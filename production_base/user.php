@@ -113,7 +113,7 @@ class User
         $this->scoreArguments   = $row->scoreArguments;
         $this->group            = $row->group;
         $this->lastParticipation = $row->lastParticipation;
-        $this->participation    = $row->participation;
+        $this->participation    = (int) $row->participation;
 
         if($userId == $sSession->getVal('userId'))
         {

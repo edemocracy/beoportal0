@@ -48,22 +48,27 @@ $fQ         = $sPage->getFollowedQuestions();
           <div class = "headline"><? echo $sTemplate->getString("PROFILE_HEADLINE", Array("[USERNAME]"), Array($user->getUserName())); ?></div>
           <div class = "signup_date"><? echo $sTemplate->getString("PROFILE_SIGNUP_DATE", Array("[SIGNUP_DATE]"), Array($user->getSignupDate())) ?></div>
         </div>
-        <div class = "row seperator">
-        </div>
+<?
+if($sPage->getUserId() == $sUser->getUserId()) {
+    echo "<hr>
+        <h2>Themenbereichsteilnahme</h2>
+        <ul>";
+    echo "<li class='participation_row'>".$sPage->makeParticipationRowPolitik()."</li>";
+    echo "<li class='participation_row'>".$sPage->makeParticipationRowInnerparteiliches()."</li>";
+}
+?>
+        </ul>
+        <hr>
         <div class = "row">
-          <div class = "profile_score_questions">
-            <div class = "score"><? echo $user->getScoreQuestions(); ?></div>
-            <p class = "score_text"><? echo $sTemplate->getString("PROFILE_QUESTION_POINTS"); ?></p>
-          </div>
           <div class = "profile_score_arguments">
             <div class = "score"><? echo $user->getScoreArguments(); ?></div>
             <p class = "score_text"><? echo $sTemplate->getString("PROFILE_ARGUMENT_POINTS"); ?></p>
           </div>
           <div class = "clear"></div>
         </div>
-        <div class = "row seperator">
-        </div>
+        <hr>
         <div class = "followed_questions">
+        <h2>Fragen, denen du folgst</h2>
 <?
 foreach($fQ as $k => $q)
 {
@@ -81,52 +86,6 @@ foreach($fQ as $k => $q)
 ?>
         </div>
       </div>
-
-<?
-/*
-
-            <div id="user_tips">
-        <div class="recent_questions">
-        <h3>Recent Questions</h3>
-            <ul>
-            <li>
-                <p class="recent_question">Sollte Deutschland den ESM ratifizieren?</p>
-                <p class="question_posted">10 days ago</p>
-            </li>
-
-            <li>
-                <p class="recent_question">Sollte Deutschland den ESM ratifizieren?</p>
-                <p class="question_posted">14 days ago</p>
-            </li>
-
-            <li>
-                <p class="recent_question">Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed interdum orci sed quam aliquet dapibus 3 months ago?</p>
-                <p class="question_posted">15 days ago</p>
-            </li>
-            </ul>
-
-        </div>
-        <div class="recent_arguments">
-        <h3>Recent Arguments</h3>
-            <ul>
-            <li>
-                <p class="recent_argument">Sollte Deutschland den ESM ratifizieren?</p>
-                <p class="argument_posted">written 15 minutes ago in <a href="#" class="question_link">Sollte Deutschland den ESM ratifizieren?</a>  </p>
-            </li>
-
-            <li>
-                <p class="recent_argument">Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed interdum orci sed quam aliquet dapibus written 15 minutes ago in Sollte Deutschland den ESM ratifizieren?  </p>
-                <p class="argument_posted">written 4 days ago in <a href="#" class="question_link">Sollte ESM ratifizieren?</a></p>
-            </li>
-
-            </ul>
-
-        </div>
-
-
-      </div>
-      */
-?>
   </div>
 
 </div>
