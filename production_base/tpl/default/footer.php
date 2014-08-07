@@ -64,12 +64,10 @@ wikiargument.raiseNotice("<? echo $notice; ?>");
 </div>
   <div id = "footer">
     <div id = "footer_content">
-        <a href = '<? echo $sTemplate->getRoot(); ?>'><div id = "footer_logo"></div></a>
         <div id = "footer_copyright">
           <a href ="<? echo $sTemplate->getString("FAQ_URL"); ?>"><? echo $sTemplate->getString("FOOTER_FAQ"); ?></a> |
           <? echo $sTemplate->getString("FOOTER_COPYRIGHT"); ?> |
           <a href = '#' onclick = "$('#footer_menu').show(); return false;"><? echo $sTemplate->getString("FOOTER_MENU"); ?></a> |
-          <a href = 'http://www.wikiarguments.net'>Powered by Wikiarguments</a>
         </div>
         <div id = "footer_menu" style = "display: none;">
           <? echo $sTemplate->getString("FOOTER_OPEN_SOURCE"); ?> |
@@ -77,10 +75,6 @@ wikiargument.raiseNotice("<? echo $notice; ?>");
           <? echo $sTemplate->getString("FOOTER_TOS"); ?> |
         </div>
         <div id="footer_socials">
-            <ul>
-                <li>BPTArguments auf Twitter:</li>
-                <li><a class="footer_twitter" href="http://twitter.com/BPTArguments"></a></li>
-            </ul>
         </div>
     </div>
   </div>
