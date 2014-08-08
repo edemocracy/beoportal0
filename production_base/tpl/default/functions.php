@@ -233,11 +233,15 @@ function drawQuestionBoxRaw(Question $q, $tabs = "", $appendDetails = false, $ap
     '.$sTemplate->getString("QUESTION_ARGUMENTS", Array("[NUM_ARGUMENTS]"), Array($numArguments)).'
   </div>';
 
+    if($appendTags) $ret .= makeTags($sPage, $q, $sTemplate);
+
+    $ret .= '<hr style="border-color: #B5B5B5;">';    
+
     if($appendDetails)
     {
         $ret .= '
   <div class = "question_details">
-    <a href=#arguments>'.$sTemplate->getString("QUESTION_GOTO_ARGUMENTS").'</a>
+    <a href=#arguments class="button_orange" style="width:180px;">'.$sTemplate->getString("QUESTION_GOTO_ARGUMENTS").'</a>
 '.$q->details().'</div>
       ';
     }
@@ -249,8 +253,6 @@ function drawQuestionBoxRaw(Question $q, $tabs = "", $appendDetails = false, $ap
     {
         $ret .= '<div class = "author question_author" style="display:none">'.$sTemplate->getString("QUESTION_AUTHOR", Array("[TIMESINCE]", "[USERNAME]"), Array($q->timeSince(), $q->authorLink())).'</div>';
     }
-
-    if($appendTags) $ret .= makeTags($sPage, $q, $sTemplate);
 
     $ret .= '
   <div class = "clear"></div>
