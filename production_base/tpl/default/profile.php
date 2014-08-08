@@ -49,15 +49,17 @@ $fQ         = $sPage->getFollowedQuestions();
           <div class = "signup_date"><? echo $sTemplate->getString("PROFILE_SIGNUP_DATE", Array("[SIGNUP_DATE]"), Array($user->getSignupDate())) ?></div>
         </div>
 <?
-if($sPage->getUserId() == $sUser->getUserId()) {
+if($sPage->getUserId() == $sUser->getUserId()) 
+{
+    echo "<form action='".$sPage->getFormUrl()."' method='POST'>";
     echo "<hr>
         <h2>Themenbereichsteilnahme</h2>
         <ul>";
     echo "<li class='participation_row'>".$sPage->makeParticipationRowPolitik()."</li>";
     echo "<li class='participation_row'>".$sPage->makeParticipationRowInnerparteiliches()."</li>";
+    echo "</ul></form>";
 }
 ?>
-        </ul>
         <hr>
         <div class = "row">
           <div class = "profile_score_arguments">

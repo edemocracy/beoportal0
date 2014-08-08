@@ -49,15 +49,18 @@ class PageProfile extends Page
 
         $this->setShortUrl($this->user->shortUrl());
 
-        if($this->handleSubscribeUnsubscribe()) {
-            header("Location: ".$this->getRedirectUrl());
-            exit;
+        if($this->user == $sUser) {
+            if($this->handleSubscribeUnsubscribe()) {
+                header("Location: ".$this->getRedirectUrl());
+                exit;
+            }
         }
     }
 
     private function handleSubscribeUnsubscribe()
     {
         global $sRequest;
+        global $sUser;
         //var_dump(@$_GET);
         //var_dump(@$_POST);
 
@@ -83,6 +86,10 @@ class PageProfile extends Page
         if($unsubscribe)
         {
             if (!($unsubscribe == 4 | $unsubscribe == 2)) {
+                exit;
+            }
+            $upvoted = $this->upvotedQuestionsForParticipationValue($sUser->getUserId(), $unsubscribe);
+            if ($upvoted) {
                 exit;
             }
             $participation = $this->user->getParticipation();
