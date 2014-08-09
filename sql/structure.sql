@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS `arguments` (
   `parentId` int(11) NOT NULL,
   `type` tinyint(4) NOT NULL,
   `userId` int(11) NOT NULL,
-  `url` varchar(200) NOT NULL,
+  `url` varchar(256) NOT NULL,
   `headline` varchar(100) NOT NULL,
-  `abstract` varchar(200) NOT NULL,
+  `abstract` varchar(256) NOT NULL,
   `details` text NOT NULL,
   `dateAdded` bigint(20) NOT NULL,
   `score` int(11) NOT NULL,
@@ -127,8 +127,8 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 
 CREATE TABLE IF NOT EXISTS `questions` (
   `questionId` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL,
-  `url` varchar(200) NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `url` varchar(256) NOT NULL,
   `details` text NOT NULL,
   `dateAdded` bigint(20) NOT NULL,
   `userId` int(11) NOT NULL,
@@ -170,6 +170,8 @@ CREATE TABLE IF NOT EXISTS `signup_tokens` (
   `tokenId` int(11) NOT NULL AUTO_INCREMENT,
   `token` varchar(64) NOT NULL,
   `memberId` varchar(64) NOT NULL,
+  `entitled` boolean NOT NULL,
+  `verified` boolean NOT NULL,
   PRIMARY KEY (`tokenId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
