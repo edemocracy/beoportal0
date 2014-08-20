@@ -61,6 +61,8 @@ class PageProfile extends Page
     {
         global $sRequest;
         global $sUser;
+        global $sDB;
+        global $sStatistics;
         //var_dump(@$_GET);
         //var_dump(@$_POST);
 
@@ -68,12 +70,17 @@ class PageProfile extends Page
          * allowed values for $subscribe / $unsubscribe: 
          * * 4 Interparteiliches
          * * 2 Politik
+         * * 1 global
          */
+
+        $userId = $this->user->getUserId();
 
         $subscribe = $sRequest->getInt("subscribe");
         if($subscribe)
         {
-            if (!($subscribe == 4 | $subscribe == 2)) {
+            
+            error_log("user $userId subscribe $subscribe");
+            if (!($subscribe == 4 | $subscribe == 2 | $subscribe == 1)) {
                 exit;
             }
             $participation = $this->user->getParticipation();
@@ -85,6 +92,31 @@ class PageProfile extends Page
         $unsubscribe = $sRequest->getInt("unsubscribe");
         if($unsubscribe)
         {
+            error_log("user $userId unsubscribe $unsubscribe");
+            if ($unsubscribe == 1) {
+                // global unsubscribe also kills other participation values and question upvotes
+                $this->user->setParticipation(0);
+                $sql = "SELECT questionId 
+                        FROM user_votes
+                        WHERE argumentId = '0'
+                        AND userId = '$userId'";
+                $res = $sDB->exec($sql);
+                $questionIds = Array();
+                while ($row = mysql_fetch_row($res)) {
+                    array_push($questionIds, $row[0]);
+                }
+                
+                $sql = "DELETE from user_votes 
+                        WHERE userId = '$userId'
+                        AND argumentId = '0'";
+                $res = $sDB->exec($sql);
+
+                foreach($questionIds as $questionId) {
+                    $sStatistics->updateQuestionStats($questionId);
+                }
+                return true;
+            }
+
             if (!($unsubscribe == 4 | $unsubscribe == 2)) {
                 exit;
             }
@@ -151,8 +183,8 @@ class PageProfile extends Page
             FROM user_votes as v, questions as q
             WHERE v.questionId = q.questionId 
             AND argumentId=0 
-            AND v.userId='".$userId."'
-            AND q.participate=".$partValue.";";
+            AND v.userId='$userId'
+            AND q.participate & $partValue = $partValue";
         $res = $sDB->exec($query);
         $error = mysql_error();
         if ($error) var_dump($error);
@@ -177,6 +209,25 @@ class PageProfile extends Page
         } else
         {
             $content = "Du unterstützt keine Anträge in diesem Themenbereich ".$this->makeSubscribeButton($label, $value);
+        }
+        return "$label: $content";
+    }
+
+    public function makeParticipationRowGlobal() {
+        global $sUser;
+        $label = "BEO";
+        $value = 1;
+
+        $participation = $sUser->getParticipation();
+
+        if ($participation) 
+        {
+            $content = "Du bist global angemeldet. ".$this->makeUnsubscribeButton($label, $value);
+            $content .= "<strong>Achtung: Bei einer Abmeldung werden alle Unterstützungen gelöscht! 
+                    (Weitere Auswirkungen siehe Nutzungsbedingungen)</strong>";
+        } else
+        {
+            $content = "Du bist abgemeldet. ".$this->makeSubscribeButton($label, $value);
         }
         return "$label: $content";
     }

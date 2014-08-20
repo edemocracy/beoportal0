@@ -49,18 +49,23 @@ $fQ         = $sPage->getFollowedQuestions();
           <div class = "signup_date"><? echo $sTemplate->getString("PROFILE_SIGNUP_DATE", Array("[SIGNUP_DATE]"), Array($user->getSignupDate())) ?></div>
         </div>
 <?
-if($sPage->getUserId() == $sUser->getUserId()) 
-{
-    echo "<form action='".$sPage->getFormUrl()."' method='POST'>";
-    echo "<hr>
-        <h2>Themenbereichsteilnahme</h2>
-        <ul>";
-    echo "<li class='participation_row'>".$sPage->makeParticipationRowPolitik()."</li>";
-    echo "<li class='participation_row'>".$sPage->makeParticipationRowInnerparteiliches()."</li>";
-    echo "</ul></form>";
-}
+if($sPage->getUserId() == $sUser->getUserId()) { 
 ?>
-        <hr>
+        <form action='<? echo $sPage->getFormUrl(); ?>' method='POST'>
+          <hr>
+          <h2>Themenbereichsteilnahme</h2>
+          <ul>
+            <li class='participation_row'><? echo $sPage->makeParticipationRowPolitik(); ?></li>
+            <li class='participation_row'><? echo $sPage->makeParticipationRowInnerparteiliches(); ?></li>
+          </ul>
+          <hr>
+          <h2>Globale Teilnahme</h2>
+          <br>
+          <ul>
+            <li class='participation_row'><? echo $sPage->makeParticipationRowGlobal(); ?></li>
+          </ul>
+          <hr>
+        </form>
         <div class = "row">
           <div class = "profile_score_arguments">
             <div class = "score"><? echo $user->getScoreArguments(); ?></div>
@@ -72,6 +77,7 @@ if($sPage->getUserId() == $sUser->getUserId())
         <div class = "followed_questions">
         <h2>Fragen, denen <? echo $user->getUserName(); ?> folgt</h2>
 <?
+}
 foreach($fQ as $k => $q)
 {
 ?>
