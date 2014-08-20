@@ -84,8 +84,8 @@ class User
             return true;
         }else
         {
-            log_error("inserting user failed!");
-            log_error($error);
+            error_log("inserting user failed!");
+            error_log($error);
             return false;
         }
     }

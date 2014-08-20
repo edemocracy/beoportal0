@@ -73,6 +73,12 @@ $language   = $sTemplate->getLangBase();
           <input type = "text" id = "signup_email" name = "signup_email" value = "<? echo $sRequest->getStringPlain("signup_email"); ?>"></input>
         </div>
       </div>
+      <div class = "row">
+        <div class = "label"><? echo $sTemplate->getString("SIGNUP_ACCEPT_TERMS_OF_USE"); ?></div>
+        <div class = "input">
+          <input type = "checkbox" id = "terms_of_use" name = "terms_of_use" value="1"></input>
+        </div>
+      </div>
 
       <div class = "row row_submit">
 <? 

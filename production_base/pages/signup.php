@@ -127,6 +127,12 @@ class PageSignup extends Page
                     return false;
                 }
             }
+            // check for terms of use agreement
+            $termsOfUse = $sRequest->getInt("terms_of_use");
+            if (!$termsOfUse) {
+                    $this->setError($sTemplate->getString("SIGNUP_ERROR_TERMS_OF_USE"));
+                    return false;
+            }
 
             $user = new User();
 
