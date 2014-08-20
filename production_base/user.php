@@ -167,10 +167,11 @@ class User
         global $sDB;
 
         if ($update) {
-            $update = ", `user_lastParticipation` = '".time()."'";
+            $update = ", `lastParticipation` = '".time()."'";
             $this->lastParticipation = time();
         } else { $update = ""; }
-        $sDB->execUsers("UPDATE `users` SET `participation` = '".i($participation)."'".$update." WHERE `userId` = '".i($this->userId)."' LIMIT 1;");
+        $sql = "UPDATE `users` SET `participation` = '".i($participation)."'".$update." WHERE `userId` = '".i($this->userId)."' LIMIT 1;";
+        $sDB->exec($sql);
         return true;
     }
 
