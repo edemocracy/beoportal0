@@ -1777,6 +1777,10 @@ opacity:0.8;
 cursor: pointer;
 }
 
+.button_wide {
+  width: 160px;
+}
+
 .signup {
   background: url("<? echo $sTemplate->getTemplateRoot(); ?>img/backgrounds/register_bg.png") no-repeat scroll center 31px transparent;
     padding-bottom: 40px;

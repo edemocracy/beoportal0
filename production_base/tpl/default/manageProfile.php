@@ -69,10 +69,18 @@ $language   = $sTemplate->getLangBase();
       </div>
 
       <div class = "row row_submit">
-        <span class = "button_orange" onclick = "$('#form_submit').submit();"><? echo $sTemplate->getString("MANAGE_SUBMIT"); ?></span>
+        <button class="button_orange button_wide" st name="updatePassword" value="1"><? echo $sTemplate->getString("MANAGE_PASSWORD_SUBMIT"); ?></button>
+      </div>
+      <div class = "row">
+        <div class = "label"><? echo $sTemplate->getString("SIGNUP_EMAIL"); ?></div>
+        <div class = "input">
+        <input id="email" name="email" value="<? echo $sUser->email(); ?>"></input>
+        </div>
       </div>
 
-      <input type = "hidden" name = "updateProfile" value = "1" />
+      <div class = "row row_submit">
+        <button class="button_orange button_wide" name="updateEmail" value="1"><? echo $sTemplate->getString("MANAGE_EMAIL_SUBMIT"); ?></button>
+      </div>
     </form>
   </div>
 

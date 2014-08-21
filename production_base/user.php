@@ -309,6 +309,18 @@ class User
         return false;
     }
 
+    public function email()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        global $sDB;
+        $this->email = $email;
+        $sDB->execUsers("UPDATE `users` SET `email` = '".mysql_real_escape_string($email)."' WHERE `userId` = '".i($this->userId)."' LIMIT 1;");
+    }
+
     public function setUserGroup($group)
     {
         global $sDB;

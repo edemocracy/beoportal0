@@ -39,9 +39,13 @@ class PageManageProfile extends Page
         global $sDB, $sRequest, $sQuery, $sUser;
         parent::Page($row);
 
-        if($sRequest->getInt("updateProfile"))
+        if($sRequest->getInt("updatePassword"))
         {
-            $this->updateProfile();
+            $this->updatePassword();
+        }
+        if($sRequest->getInt("updateEmail"))
+        {
+            $this->updateEmail();
         }
     }
 
@@ -57,9 +61,9 @@ class PageManageProfile extends Page
         return true;
     }
 
-    public function updateProfile()
+    public function updatePassword()
     {
-        global $sRequest, $sUser;
+        global $sRequest, $sUser, $sSession, $sTemplate;
 
         $oldPass  = $sRequest->getString("password_old");
         $newPass  = $sRequest->getString("password_new");
@@ -74,7 +78,24 @@ class PageManageProfile extends Page
         if($newPass == $newPass2)
         {
             $sUser->setPassword($oldPass, $newPass);
+            $sSession->setVal('notification', $sTemplate->getString("UPDATE_PASSWORD_SUCCESS"));
         }
+    }
+
+    public function updateEmail()
+    {
+        global $sRequest, $sUser, $sSession, $sTemplate;
+
+        $email  = $sRequest->getString("email");
+
+        if(!$sUser->isLoggedIn())
+        {
+            $this->setError($sTemplate->getString("ERROR_NOT_LOGGED_IN"));
+            return false;
+        }
+
+        $sUser->setEmail($email);
+            $sSession->setVal('notification', $sTemplate->getString("UPDATE_EMAIL_SUCCESS"));
     }
 
     public function title()
