@@ -114,7 +114,9 @@ var wikiargument = new _Wikiargument('<? echo $sUser->getUserId(); ?>');
             <a href="<? echo $sTemplate->getRoot(); ?>"><? echo $sTemplate->getString("HEADER_TEXT"); ?></a>
           </div>
   <? if($sUser->isLoggedIn()) { ?>
-          <div class="header_userstatus"><? echo htmlspecialchars($sUser->getUserStatus()); ?></div>
+          <div class="header_userstatus">
+            <a href='<? echo $sTemplate->getRoot(); ?>user/<? echo $sUser->getUserId(); ?>/'>&gt; Zum Profil / Verifizierungsstatus / An-/ Abmeldung &lt;</a>
+          </div>
           <div id = "header_menu" class = "header_menu">
             <div class = "username">
               <? echo htmlspecialchars($sUser->getUserName()); ?>
@@ -124,7 +126,6 @@ var wikiargument = new _Wikiargument('<? echo $sUser->getUserId(); ?>');
 
             <div class = "hidden profile_menu">
               <ul class="user_profile_list">
-                  <li><div class = "icon_share_page"></div><a href = '#' onclick = "wikiargument.sharePage('<? echo $sPage->shortUrl() ? $sPage->shortUrl() : ''; ?>');"><? echo $sTemplate->getString("HEADER_NAVI_SHARE_PAGE"); ?></a></li>
                   <li><div class = "icon_manage_profile"></div><a href = '<? echo $sTemplate->getRoot(); ?>settings/'><? echo $sTemplate->getString("HEADER_NAVI_MANAGE_PROFILE"); ?></a></li>
                   <li><div class = "icon_my_profile"></div><a href = '<? echo $sTemplate->getRoot(); ?>user/<? echo $sUser->getUserId(); ?>/'><? echo $sTemplate->getString("HEADER_NAVI_MY_PROFILE"); ?></a></li>
                   <li><div class = "icon_logout"></div><a href = '<? echo $sTemplate->getRoot(); ?>logout/'><? echo $sTemplate->getString("HEADER_NAVI_LOGOUT"); ?></a></li>

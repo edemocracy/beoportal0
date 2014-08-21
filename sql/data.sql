@@ -65,7 +65,7 @@ INSERT INTO `localization` (`loc_key`, `loc_language`, `loc_val`) VALUES
 ('GERMAN', 'de', 'Deutsch'),
 ('HEADER_NAVI_LOGOUT', 'de', 'Logout'),
 ('HEADER_NAVI_MANAGE_PROFILE', 'de', 'Einstellungen'),
-('HEADER_NAVI_MY_PROFILE', 'de', 'Mein Profil'),
+('HEADER_NAVI_MY_PROFILE', 'de', 'Profil / Teilnehmerinfos'),
 ('HEADER_NAVI_NEW_QUESTION', 'de', 'Neue Frage'),
 ('HEADER_NAVI_SHARE_PAGE', 'de', 'Seite Teilen'),
 ('HEADER_SIGNUP', 'de', 'Registrieren'),

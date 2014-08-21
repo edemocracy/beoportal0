@@ -51,6 +51,9 @@ $fQ         = $sPage->getFollowedQuestions();
 <?
 if($sPage->getUserId() == $sUser->getUserId()) { 
 ?>
+        <hr>
+        <h2>Teilnahmeberechtigung</h2>
+        <div><? echo $sUser->getUserStatus(); ?></div>
         <form action='<? echo $sPage->getFormUrl(); ?>' method='POST'>
           <hr>
           <h2>Themenbereichsteilnahme</h2>
