@@ -41,7 +41,7 @@ class User
         $this->voteData     = 0;
     }
 
-    public function create($username, $email, $password, $memberId = "", $sendConfirmation = true, $group = USER_GROUP_DEFAULT_SIGNUP)
+    public function create($username, $email, $password, $memberId, $entitled, $verified, $sendConfirmation = true, $group = USER_GROUP_DEFAULT_SIGNUP)
     {
         global $sDB, $sTemplate;
 
@@ -49,9 +49,21 @@ class User
         $passwordHash = crypt($password, '$6$rounds=5000$'.$salt.'$');
         $dateAdded    = time();
 
-        $sDB->execUsers("INSERT INTO `users` (`userId`, `userName`, `email`, `group`, `password`, `salt`, `dateAdded`, `memberId`) VALUES
-                                             (NULL, '".mysql_real_escape_string($username)."', '".mysql_real_escape_string($email)."', '".i($group)."', '".mysql_real_escape_string($passwordHash)."', '".mysql_real_escape_string($salt)."', '".i($dateAdded)."', '".mysql_real_escape_string($memberId)."');");
+        $sql = "INSERT INTO `users` (`userId`, `userName`, `email`, `group`, `password`, `salt`, `dateAdded`, `entitled`, `verified`, `memberId`) VALUES
+            (NULL, '"
+            .mysql_real_escape_string($username)."', '"
+            .mysql_real_escape_string($email)."', '"
+            .i($group)."', '"
+            .mysql_real_escape_string($passwordHash)."', '"
+            .mysql_real_escape_string($salt)."', '"
+            .i($dateAdded)."', '"
+            .mysql_real_escape_string($entitled)."', '"
+            .mysql_real_escape_string($verified)."', '"
+            .mysql_real_escape_string($memberId)."');";
 
+
+        error_log($sql);
+        $sDB->execUsers($sql);
         $error = mysql_error();
         if(!$error)
         {
@@ -62,6 +74,9 @@ class User
             $this->salt      = $salt;
             $this->dateAdded = $dateAdded;
             $this->group     = $group;
+            $this->entitled  = $entitled;
+            $this->verified  = $verified;
+            $this->memberId  = $memberId;
             $this->lastParticipation = $lastParticipation;
 
             if($sendConfirmation)

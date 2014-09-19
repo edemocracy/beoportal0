@@ -56,25 +56,34 @@ class PageSignup extends Page
     }
 
     public function checkSessionSignupToken() {
-        global $sSession, $sDB;
-
-        $token = $sSession->getVal("signupToken");
+        /* fetch the member infos associated with a signup token (memberId, entitled, verified)  */
+         global $sSession, $sDB;
+ 
+         $token = $sSession->getVal("signupToken");
         $res = $sDB->exec("SELECT * FROM `signup_tokens` WHERE `token` = '".mysql_real_escape_string($token)."' LIMIT 1;");
         return mysql_num_rows($res) == 1;
     }
 
-    public function getMemberIdBySignupToken() {
-        /* fetch the memberId associated with  */
+
+    public function getMemberInfoBySignupToken() {
+        /* fetch the member infos associated with a signup token (memberId, entitled, verified)  */
         global $sSession, $sDB;
 
         $token = $sSession->getVal("signupToken");
-        $res = $sDB->exec("SELECT memberId FROM `signup_tokens` WHERE `token` = '".mysql_real_escape_string($token)."' LIMIT 1;");
+        $res = $sDB->exec("SELECT memberId,entitled,verified FROM `signup_tokens` WHERE `token` = '".mysql_real_escape_string($token)."' LIMIT 1;");
+        $error = mysql_error();
+        if ($error) {
+            error_log($error);
+        }
         if(mysql_num_rows($res) == 0)
         {
             return;
         }
         $row = mysql_fetch_object($res);
-        return $row->memberId;
+        error_log($row->memberId);
+        error_log($row->verified);
+        error_log($row);
+        return $row;
     }
 
     public function handleSignup()
@@ -120,8 +129,8 @@ class PageSignup extends Page
             // check for valid token if required
             if(SIGNUP_REQUIRE_TOKEN)
             {
-                $memberId = $this->getMemberIdBySignupToken();
-                if(!$memberId)
+                $memberInfo = $this->getMemberInfoBySignupToken();
+                if(!$memberInfo->memberId)
                 {
                     $this->setError($sTemplate->getString("SIGNUP_REQUIRE_TOKEN"));
                     return false;
@@ -135,8 +144,11 @@ class PageSignup extends Page
             }
 
             $user = new User();
+            $memberId = $memberInfo->memberId;
+            $entitled = $memberInfo->entitled;
+            $verified = $memberInfo->verified;
 
-            if($user->create($username, $email, $password, $memberId))
+            if($user->create($username, $email, $password, $memberId, $entitled, $verified))
             {
                 $addSuccessText = "";
 
