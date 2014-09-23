@@ -48,12 +48,12 @@ $fQ         = $sPage->getFollowedQuestions();
           <div class = "headline"><? echo $sTemplate->getString("PROFILE_HEADLINE", Array("[USERNAME]"), Array($user->getUserName())); ?></div>
           <div class = "signup_date"><? echo $sTemplate->getString("PROFILE_SIGNUP_DATE", Array("[SIGNUP_DATE]"), Array($user->getSignupDate())) ?></div>
         </div>
-<?
-if($sPage->getUserId() == $sUser->getUserId()) { 
-?>
         <hr>
         <h2>Teilnahmeberechtigung</h2>
         <div><? echo $sUser->getUserStatus(); ?></div>
+<?
+if($user->isEntitled()) { 
+?>
         <form action='<? echo $sPage->getFormUrl(); ?>' method='POST'>
           <hr>
           <h2>Themenbereichsteilnahme</h2>
@@ -69,6 +69,11 @@ if($sPage->getUserId() == $sUser->getUserId()) {
           </ul>
           <hr>
         </form>
+<?
+} else {
+    echo $sTemplate->getString("PARTICIPATION_NOT_ENTITLED");
+}
+?>
         <div class = "row">
           <div class = "profile_score_arguments">
             <div class = "score"><? echo $user->getScoreArguments(); ?></div>
@@ -80,7 +85,6 @@ if($sPage->getUserId() == $sUser->getUserId()) {
         <div class = "followed_questions">
         <h2>Fragen, denen <? echo $user->getUserName(); ?> folgt</h2>
 <?
-}
 foreach($fQ as $k => $q)
 {
 ?>

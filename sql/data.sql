@@ -152,6 +152,7 @@ INSERT INTO `localization` (`loc_key`, `loc_language`, `loc_val`) VALUES
 ('OVERVIEW', 'de', 'leer'),
 ('PAGE_ERROR_INVALID_PAGE', 'de', 'Diese Seite existiert nicht'),
 ('PAGINATION_PAGE_X_OF_Y', 'de', 'Seite [CUR] von [MAX]'),
+('PARTICIPATION_NOT_ENTITLED', 'de', 'Da du nicht stimmberechtigt bist, kannst du aktuell nicht teilnehmen.'),
 ('PASSWORD_OLD', 'de', 'Passwort alt'),
 ('PASS_REQUEST_SUCCESS', 'de', 'Wir haben dir eine Email geschickt um dein Passwort zur&uuml;ck zu setzen'),
 ('PROFILE_ARGUMENT_POINTS', 'de', 'eigene Argumente'),
