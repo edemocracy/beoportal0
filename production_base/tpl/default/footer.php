@@ -66,6 +66,7 @@ wikiargument.raiseNotice("<? echo $notice; ?>");
     <div id = "footer_content">
         <div id = "footer_copyright">
           <a href ="<? echo $sTemplate->getString("FAQ_URL"); ?>"><? echo $sTemplate->getString("FOOTER_FAQ"); ?></a> |
+          <a href ="<? echo $sTemplate->getString("TERMS_OF_USE_URL"); ?>"><? echo $sTemplate->getString("TERMS_OF_USE"); ?></a> |
           <? echo $sTemplate->getString("FOOTER_COPYRIGHT"); ?> |
           <a href = '#' onclick = "$('#footer_menu').show(); return false;"><? echo $sTemplate->getString("FOOTER_MENU"); ?></a> |
         </div>
