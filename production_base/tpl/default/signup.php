@@ -39,7 +39,16 @@ $language   = $sTemplate->getLangBase();
 ?>
 <? include($sTemplate->getTemplateRootAbs()."header.php"); ?>
 
+
+
+
 <div id = "content_wide">
+    <?
+    if ($sPage->signup_success) {
+        echo $sTemplate->getString("SIGNUP_SUCCESS_REDIRECT");
+        echo '<a href="'. $sTemplate->getRoot() . '">' . $sTemplate->getString("SIGNUP_SUCCESS_TO_HOMEPAGE"). '</a>';
+    } else {
+    ?>
   <div class = "thin">
   <div class = "signup">
     <form id = "form_submit" action = "<? echo $sTemplate->getRoot(); ?>signup/" method = "POST">
@@ -104,6 +113,9 @@ else { ?>
   </div>
 
   <div class = "clear"></div>
+<?
+}
+?>
   </div>
 
 </div>

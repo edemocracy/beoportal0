@@ -36,15 +36,19 @@ class PageSignup extends Page
 {
     public function PageSignup($row)
     {
-        global $sDB, $sRequest, $sUser;
+        global $sDB, $sRequest, $sUser, $sTemplate;
         parent::Page($row);
 
         $this->view = VIEW_SIGNUP;
 
         if($sRequest->getInt("signup"))
         {
-            $this->handleSignup();
-        }if($sRequest->getInt("passRequest"))
+            $this->signup_success = $this->handleSignup();
+            if ($this->signup_success) {
+                header("refresh:7; url=".$sTemplate->getRoot()."/");
+            }
+
+        } else if($sRequest->getInt("passRequest"))
         {
             $this->handlePassRequest();
         }

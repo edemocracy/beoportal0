@@ -213,6 +213,8 @@ INSERT INTO `localization` (`loc_key`, `loc_language`, `loc_val`) VALUES
 ('SIGNUP_REQUIRE_TOKEN', 'de', 'Es wird ein gültiges Token zur Registrierung benötigt. Bei Problemen bitte die FAQ / Häufige Fragen beachten.'),
 ('SIGNUP_SUBMIT', 'de', 'Registrieren'),
 ('SIGNUP_SUCCESS', 'de', 'Du hast eine Bestätigungsmail erhalten. Klicke auf den enthaltenen Link um deinen Account freizuschalten.'),
+('SIGNUP_SUCCESS_REDIRECT', 'de', 'Du wirst in 7 Sekunden weitergeleitet. Falls dies nicht funktioniert, '),
+('SIGNUP_SUCCESS_TO_HOMEPAGE', 'de', 'klicke hier, um zur Startseite zu gelangen'),
 ('SIGNUP_USERNAME', 'de', 'Benutzername'),
 ('SUBMIT_ADD_USERS', 'de', 'Hinzufügen'),
 ('SUBMIT_CHANGE_OWNERSHIP', 'de', 'Besitzer ändern'),
