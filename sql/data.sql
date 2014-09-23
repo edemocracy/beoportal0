@@ -60,6 +60,8 @@ INSERT INTO `localization` (`loc_key`, `loc_language`, `loc_val`) VALUES
 ('FOOTER_COPYRIGHT', 'de', '<a href="/imprint/">Impressum</a>\r\n'),
 ('FOOTER_FAQ', 'de', 'FAQ (Häufige Fragen)'),
 ('FOOTER_MENU', 'de', 'Menü'),
+('FOOTER_OTHER', 'de', 'Weiterer Link'),
+('FOOTER_OTHER_URL', 'de', ''),
 ('FOOTER_OPEN_SOURCE', 'de', '<a href="https://github.com/edemocracy/beoportal0/">Open Source</a>\r\n'),
 ('FOOTER_TOS', 'de', '<a href="http://creativecommons.org/licenses/by/3.0/de/">Inhalte: CC BY 3.0</a>'),
 ('GERMAN', 'de', 'Deutsch'),
