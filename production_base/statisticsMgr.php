@@ -293,7 +293,6 @@ class StatisticsMgr
             if ($participate) {
                 $user->setParticipation($participation | $participate, true);
             }
-            $user->follow($questionId);
         }
 
         if ($argumentId)

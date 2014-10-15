@@ -78,7 +78,6 @@ class PageNewCounterArgument extends Page
             {
                 $argument = new Argument($argumentId);
                 $sNotify->notifyNewArgument($this->question, $argument);
-                $sUser->follow($this->question->questionId());
                 header("Location: ".$this->redirectUrl);
                 exit;
             }
